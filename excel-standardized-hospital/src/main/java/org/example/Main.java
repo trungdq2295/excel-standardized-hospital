@@ -26,7 +26,7 @@ public class Main {
 
   public static void main(String[] args) {
     // Create Frame
-    JFrame frame = new JFrame("Thanh Xuân của Quý");
+    JFrame frame = new JFrame("Check bệnh nhân trùng");
     frame.setSize(400, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLayout(new FlowLayout());
@@ -95,10 +95,16 @@ public class Main {
         headers.add(soTien);
         indexHeader++;
       } else {
-        Data data = new Data(Integer.parseInt(soToa), fullName, Integer.parseInt(soBienLai), Double.parseDouble(soTien));
+        String newFullName = cleanName(fullName);
+        Data data = new Data(Integer.parseInt(soToa), newFullName, Integer.parseInt(soBienLai), Double.parseDouble(soTien));
         datas.add(data);
       }
     }
+  }
+
+  private static String cleanName(String name) {
+    return name.replaceAll("\\(.*?\\)", "")
+            .trim();
   }
 
   private static void removeUnDuplicatedData(Map<String, List<Data>> map) {
